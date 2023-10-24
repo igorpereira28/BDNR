@@ -50,5 +50,24 @@ def visualizarCompra(db):
     bancoVendedor = db.vendedor
     bancoProduto = db.produto
     print("\nVisualizando as compras")
-    for compra in banco.find({}):
-        print(compra["usuario"]["nome"], compra["vendedor"]["nome"], compra["produto"]["nome"], compra["valor"], compra["quantidade"], compra["total gasto"])
+    nomeUsuario = input("Deseja filtrar por algum usuário especifico? ")
+    nomeVendedor = input("Deseja filtrar por algum vendedor especifico? ")
+    nomeProduto = input("Deseja filtrar por algum produto especifico? ")
+    filtro = {}
+    if nomeUsuario:
+        filtro["usuario.nome"] = nomeUsuario
+    if nomeVendedor:
+        filtro["vendedor.nome"] = nomeVendedor
+    if nomeProduto:
+        filtro["produto.nome"] = nomeProduto
+
+    for compra in banco.find(filtro):
+        print(
+            "Cliente:", compra["usuario"]["nome"],
+            "\nVendedor:", compra["vendedor"]["nome"],
+            "\nProduto comprado:", compra["produto"]["nome"],
+            "\nValor do produto:", compra["valor"],
+            "\nQuantidade comprada:", compra["quantidade"],
+            "\nTotal gasto:", compra["total gasto"],
+            "\n--------------------------------"
+            )
