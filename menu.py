@@ -3,8 +3,8 @@ from pymongo.server_api import ServerApi
 from usuario import create_usuario, read_usuario, update_usuario, delete_usuario
 from vendedor import create_vendedor, read_vendedor, update_vendedor, delete_vendedor
 from produto import create_produto, read_produto, update_produto, delete_produto
+from compra import realizarCompra, visualizarCompra
 
-uri = "mongodb+srv://Mercado_Livre:By2kSafpODO5fIi4@nosql.cubr654.mongodb.net/?retryWrites=true&w=majority"
 
 # Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi('1'))
@@ -17,6 +17,7 @@ while (key != 'S'):
     print("1-CRUD Usuário")
     print("2-CRUD Vendedor")
     print("3-CRUD Produto")
+    print("4-CRUD Compra")
     key = input("Digite a opção desejada? (S para sair) ")
 
     if (key == '1'):
@@ -92,4 +93,18 @@ while (key != 'S'):
             print("delete produto")
             nome = input("Nome a ser deletado: ")
             valor = input("Valor a ser deletado: ")
-            delete_produto(db, nome, valor)   
+            delete_produto(db, nome, valor)
+
+    elif (key == '4'):
+        print("Menu da Compra")
+        print("1-Realizar Compra")
+        print("2-Visualizar Compra")
+        print("3-Atualizar Compra")
+        print("4-Cancelar Compra")
+        sub = input("Digite a opção desejada? (V para voltar) ")
+
+        if (sub == '1'):
+            realizarCompra(db)
+        
+        elif (sub == '2'):
+            visualizarCompra(db)

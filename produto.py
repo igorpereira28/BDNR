@@ -8,10 +8,10 @@ def delete_produto(db, nome, valor):
 
 def create_produto(db):
     # Insert
-    mycol = db.vendedor
+    mycol = db.produto
     print("\nInserindo um novo produto")
     nome = input("Nome: ")
-    valor = input("Valor: ")
+    valor = int(input("Valor: "))
     mydoc = {"nome": nome, "valor": valor}
     x = mycol.insert_one(mydoc)
     print("Documento inserido com ID ", x.inserted_id)
