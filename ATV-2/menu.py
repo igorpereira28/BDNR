@@ -5,6 +5,7 @@ from vendedor import create_vendedor, read_vendedor, update_vendedor, delete_ven
 from produto import create_produto, read_produto, update_produto, delete_produto
 from compra import realizarCompra, visualizarCompra
 
+uri = "mongodb+srv://Mercado_Livre:By2kSafpODO5fIi4@nosql.cubr654.mongodb.net/?retryWrites=true&w=majority"
 
 # Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi('1'))
