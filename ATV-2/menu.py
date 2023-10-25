@@ -1,7 +1,7 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import datetime
-from usuario import create_usuario, read_usuario, update_usuario, delete_usuario
+from usuario import create_usuario, read_usuario, update_usuario, delete_usuario, adicionarFavoritos
 from vendedor import create_vendedor, read_vendedor, update_vendedor, delete_vendedor
 from produto import create_produto, read_produto, update_produto, delete_produto
 from compra import realizarCompra, visualizarCompra, atualizarCompra, cancelarCompra
@@ -28,6 +28,10 @@ while (key != 'S'):
         print("2-Read Usuário")
         print("3-Update Usuário")
         print("4-Delete Usuário")
+        print("---------FAVORITOS-----------")
+        print("5-Adicionar Favoritos")
+        print("6-Visualizar Favoritos")
+        print("7-Excluir Favoritos")
         sub = input("Digite a opção desejada? (V para voltar) ")
         if (sub == '1'):
             print("Create usuario")
@@ -40,6 +44,21 @@ while (key != 'S'):
         elif (sub == '3'):
             nome = input("Update usuário, deseja algum nome especifico? ")
             update_usuario(db, nome)
+
+        elif (sub == '4'):
+            print("delete usuario")
+            nome = input("Nome a ser deletado: ")
+            sobrenome = input("Sobrenome a ser deletado: ")
+            delete_usuario(db, nome, sobrenome)
+
+        elif (sub == '5'):
+            adicionarFavoritos(db)
+
+        elif (sub == '4'):
+            print("delete usuario")
+            nome = input("Nome a ser deletado: ")
+            sobrenome = input("Sobrenome a ser deletado: ")
+            delete_usuario(db, nome, sobrenome)
 
         elif (sub == '4'):
             print("delete usuario")

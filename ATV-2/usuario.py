@@ -69,3 +69,31 @@ def update_usuario(db, nome):
 
     newvalues = {"$set": mydoc}
     mycol.update_one(myquery, newvalues)
+
+def adicionarFavoritos(db):
+    #create favorito
+    mycol = db.usuario
+    bancoProduto = db.produto
+    print("\nInserindo um novo favorito")
+    print("Primeiramente, selecione um cliente")
+    for usuario in mycol.find({}):
+        print(usuario["nome"])
+    usuario = None
+    while not usuario:
+        nomeUsuario = input("Qual cliente está favoritando? ")
+        usuario = mycol.find_one({"nome": nomeUsuario})
+        if not usuario:
+            print("Cliente não encontrado")
+            continue
+    for produto in bancoProduto.find({}):
+        print(produto["nome"])
+    produto = None
+    while not produto:
+        nomeProduto = input("Qual produto está sendo favoritado? ")
+        produto = bancoProduto.find_one({"nome": nomeProduto})
+        if not produto:
+            print("Produto não encontrado")
+            continue
+    x = mycol.insert_one(produto)
+    print("Documento inserido com ID ", x.inserted_id)
+
