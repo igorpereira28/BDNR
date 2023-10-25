@@ -168,3 +168,43 @@ def atualizarCompra(db):
                     salvar = dataCompra
                     salvar = {"$set": {"data": salvar}}
                     banco.update_one(filtro, salvar)
+
+def cancelarCompra(db):
+    #delete compra
+    print("\nCancele alguma compra")
+    print("\nPara conseguirmos cancelar a compra, precisamos do nome do produto, nome do vendedor, do usuário e a data da compra")
+    banco = db.compra
+    bancoUsuario = db.usuario
+    bancoVendedor = db.vendedor
+    bancoProduto = db.produto
+    nomeUsuario = input("Digite o nome do cliente: ")
+    nomeVendedor = input("Digite o nome do vendedor que realizou a venda: ")
+    nomeProduto = input("Digite o nome do produto que foi vendido: ")
+    date = input('Insira a data da compra no formato br com / ex: 22/01/2022: ').split('/')
+    day, month, year = [int(item) for item in date]
+    dataCompra = datetime.datetime(year, month, day)
+    filtro = {}
+    if nomeUsuario:
+        filtro["usuario.nome"] = nomeUsuario
+    if nomeVendedor:
+        filtro["vendedor.nome"] = nomeVendedor
+    if nomeProduto:
+        filtro["produto.nome"] = nomeProduto
+    if dataCompra:
+        filtro["data"] = dataCompra
+    for compra in banco.find(filtro):
+        print(
+            "\nCliente:", compra["usuario"]["nome"],
+            "\nVendedor:", compra["vendedor"]["nome"],
+            "\nProduto comprado:", compra["produto"]["nome"],
+            "\nValor do produto:", compra["valor"],
+            "\nQuantidade comprada:", compra["quantidade"],
+            "\nData da compra:", compra["data"].strftime("%d/%m/%Y"),
+            "\nTotal gasto:", compra["total gasto"],
+            "\n"
+        )
+    confirmacao = input("É ESTA COMPRA QUE VOCÊ DESEJA CANCELAR?: S / N   ")
+    if (confirmacao == "S" or confirmacao == "s"):
+        mydoc = banco.delete_one(filtro)
+        print("Compra Cancelada!")
+

@@ -4,7 +4,7 @@ import datetime
 from usuario import create_usuario, read_usuario, update_usuario, delete_usuario
 from vendedor import create_vendedor, read_vendedor, update_vendedor, delete_vendedor
 from produto import create_produto, read_produto, update_produto, delete_produto
-from compra import realizarCompra, visualizarCompra, atualizarCompra
+from compra import realizarCompra, visualizarCompra, atualizarCompra, cancelarCompra
 
 uri = "mongodb+srv://Mercado_Livre:By2kSafpODO5fIi4@nosql.cubr654.mongodb.net/?retryWrites=true&w=majority"
 
@@ -113,3 +113,6 @@ while (key != 'S'):
 
         elif (sub == '3'):
             atualizarCompra(db)
+
+        elif (sub == '4'):
+            cancelarCompra(db)
