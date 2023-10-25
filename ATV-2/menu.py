@@ -1,7 +1,7 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import datetime
-from usuario import create_usuario, read_usuario, update_usuario, delete_usuario, adicionarFavoritos
+from usuario import create_usuario, read_usuario, update_usuario, delete_usuario, adicionarFavoritos, visualizarFavoritos
 from vendedor import create_vendedor, read_vendedor, update_vendedor, delete_vendedor
 from produto import create_produto, read_produto, update_produto, delete_produto
 from compra import realizarCompra, visualizarCompra, atualizarCompra, cancelarCompra
@@ -54,11 +54,8 @@ while (key != 'S'):
         elif (sub == '5'):
             adicionarFavoritos(db)
 
-        elif (sub == '4'):
-            print("delete usuario")
-            nome = input("Nome a ser deletado: ")
-            sobrenome = input("Sobrenome a ser deletado: ")
-            delete_usuario(db, nome, sobrenome)
+        elif (sub == '6'):
+            visualizarFavoritos(db)
 
         elif (sub == '4'):
             print("delete usuario")

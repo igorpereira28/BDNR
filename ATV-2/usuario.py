@@ -94,6 +94,21 @@ def adicionarFavoritos(db):
         if not produto:
             print("Produto não encontrado")
             continue
-    x = mycol.insert_one(produto)
-    print("Documento inserido com ID ", x.inserted_id)
+    # Update the document
+    document = mycol.update_one({"nome": usuario["nome"]}, {"$push": {"favorito": [produto["nome"]]}})
+    print("Documento atualizado com ID ", document.modified_count)
 
+def visualizarFavoritos(db):
+    print("Visualizar Favoritos")
+    mycol = db.usuario
+    cpf = input("Deseja pesquisar pelo cpf de algum cliente em específico? ")
+    filtro = {}
+    if cpf:
+        filtro["usuario.cpf"] = cpf
+
+    for usuario in mycol.find(filtro):
+        print(
+            "Cliente:", usuario["nome"],
+            "Favoritos:", usuario["favorito"],
+            "\n--------------------------------"
+        )
