@@ -77,6 +77,7 @@ def visualizarCompra(db):
             "\n--------------------------------"
         )
 
+#ELE ESTÁ PESQUISANDO, FILTRANDO, PORÉM, NÃO ESTÁ ATUALIZANDO NO BANCO
 def atualizarCompra(db):
     #update compra
     banco = db.compra
@@ -172,7 +173,7 @@ def atualizarCompra(db):
 def cancelarCompra(db):
     #delete compra
     print("\nCancele alguma compra")
-    print("\nPara conseguirmos cancelar a compra, precisamos do nome do produto, nome do vendedor, do usuário e a data da compra")
+    print("Para conseguirmos cancelar a compra, precisamos do nome do produto, nome do vendedor, do usuário e a data da compra")
     banco = db.compra
     bancoUsuario = db.usuario
     bancoVendedor = db.vendedor
