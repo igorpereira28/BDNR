@@ -1,12 +1,13 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import datetime
-from usuario import create_usuario, read_usuario, update_usuario, delete_usuario, adicionarFavoritos, visualizarFavoritos, excluirFavotito
+from usuario import create_usuario, read_usuario, update_usuario, delete_usuario, adicionarFavoritos, visualizarFavoritos, excluirFavorito
 from vendedor import create_vendedor, read_vendedor, update_vendedor, delete_vendedor
 from produto import create_produto, read_produto, update_produto, delete_produto
-from compra import realizarCompra, visualizarCompra, atualizarCompra, cancelarCompra
+from compra import realizarCompra, visualizarCompra, cancelarCompra
+from uri import uri
 
-uri = "mongodb+srv://Mercado_Livre:By2kSafpODO5fIi4@nosql.cubr654.mongodb.net/?retryWrites=true&w=majority"
+uri = uri
 
 # Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi('1'))
@@ -58,7 +59,7 @@ while (key != 'S'):
             visualizarFavoritos(db)
 
         elif (sub == '7'):
-            excluirFavotito(db)
+            excluirFavorito(db)
             
     elif (key == '2'):
         print("Menu do Vendedor")    
@@ -114,8 +115,7 @@ while (key != 'S'):
         print("Menu da Compra")
         print("1-Realizar Compra")
         print("2-Visualizar Compra")
-        print("3-Atualizar Compra")
-        print("4-Cancelar Compra")
+        print("3-Cancelar Compra")
         sub = input("Digite a opção desejada? (V para voltar) ")
 
         if (sub == '1'):
@@ -124,8 +124,8 @@ while (key != 'S'):
         elif (sub == '2'):
             visualizarCompra(db)
 
-        elif (sub == '3'):
-            atualizarCompra(db)
+        # elif (sub == '3'):
+        #     atualizarCompra(db)
 
-        elif (sub == '4'):
+        elif (sub == '3'):
             cancelarCompra(db)

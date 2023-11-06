@@ -1,3 +1,4 @@
+from pymongo import UpdateOne
 def delete_usuario(db, nome, sobrenome):
     # Delete
     mycol = db.usuario
@@ -118,41 +119,39 @@ def visualizarFavoritos(db):
             print(x["nome"], x["favorito"])
             print("-----------------------------------------------")
 
-def excluirFavotito(db, filtro={}, nome=None, nomeFavorito=None, indice=None):
-    #delete favorito
-    print("Excluir Favorito")
+def excluirFavorito(db):
+    # Delete favorito
+    print("Excluir Favoritos")
     mycol = db.usuario
+    for usuario in mycol.find({}):
+        print(usuario["nome"])
+    nome = input("Digite o nome do cliente: ")
+    nomeProduto = input("Digite o nome do produto a ser excluído dos favoritos: ")
 
-    nome = input("Digite o nome: ")
-    nomeFavorito = input("Qual produto? ")
-    indice = None
+    # Construa a consulta para encontrar o documento certo
+    myquery = {"nome": nome}
 
-    if nome is not None:
-        filtro["usuario.nome"] = nome
-    if nomeFavorito is not None:
-        filtro["usuario.favorito"] = nomeFavorito
-    if indice is not None:
-        filtro["favorito.$index"] = indice
+    # Recupere o documento
+    user_doc = mycol.find_one(myquery)
 
-    usuarios = mycol.find(filtro)
+    if user_doc:
+        # Obtenha o campo "favorito"
+        favorito = user_doc.get("favorito", [])
 
-    if mycol.count_documents(filtro) > 0:
-        for usuario in usuarios:
-            # Verifique se o usuário é um documento MongoDB
-            if isinstance(usuario, dict):
-                # Obtenha o valor do campo "favorito" como uma lista
-                favorito = usuario.get("favorito", [])
+        produto_encontrado = False
 
-                # Verifique se o produto existe no favorito do usuário
-                for item in favorito:
-                    if item == nomeFavorito:
-                        favorito.remove(item)
-                        mydoc = mycol.update_one({"nome": usuario["nome"]}, {"$set": {"favorito": favorito}})
-                        print("Produto excluido do favorito!")
-                        print(mydoc)
-                        break
+        if favorito:
+            new_favorito = []
 
-                else:
-                    print("O produto que você deseja excluir não está no favorito do usuário.")
+            # Percorra todas as matrizes dentro do campo "favorito"
+            for arr in favorito:
+                if arr != [nomeProduto]:
+                    new_favorito.append(arr)
+
+            # Atualize o documento com o novo "favorito"
+            mycol.update_one(myquery, {"$set": {"favorito": new_favorito}})
+            print("Array dentro de 'favorito' excluído com sucesso!")
+        else:
+            print("Nenhum favorito encontrado.")
     else:
-        print("Nenhum usuário encontrado.")
+        print("Cliente não encontrado.")
