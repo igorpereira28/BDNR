@@ -173,7 +173,7 @@ def visualizarCompra(db):
 def cancelarCompra(db):
     #delete compra
     print("\nCancele alguma compra")
-    print("\nPara conseguirmos cancelar a compra, precisamos do nome do produto, nome do vendedor, do usuário e a data da compra")
+    print("Para conseguirmos cancelar a compra, precisamos do nome do produto, nome do vendedor, do usuário e a data da compra")
     banco = db.compra
     bancoUsuario = db.usuario
     bancoVendedor = db.vendedor
