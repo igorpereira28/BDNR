@@ -99,7 +99,6 @@ def adicionarFavoritos(db):
     document = mycol.update_one({"nome": usuario["nome"]}, {"$push": {"favorito": [produto["nome"]]}})
     print("Documento atualizado com ID ", document.modified_count)
 
-#ESTA FUNCIONAL, PORÉM, FALTA FAZER A PESQUISA POR CPF
 def visualizarFavoritos(db):
     print("Visualizar Favoritos")
     mycol = db.usuario

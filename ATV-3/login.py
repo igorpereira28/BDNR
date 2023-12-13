@@ -84,13 +84,14 @@ def listar_e_autenticar_usuarios(redis_host, redis_port, redis_password):
                 print("Login e senha corretos. Autenticando...")
 
                 # Simular autenticação com um expire de 10 segundos
-                cliente_redis.expire(chave_usuario_selecionado, 10)
+                cliente_redis.expire(chave_usuario_selecionado, 60)
                 print("Autenticação bem-sucedida. Você está autenticado.")
                 
-                # Verificar continuamente se a chave ainda existe no Redis
-                while cliente_redis.exists(chave_usuario_selecionado):
-                    print("Você está conectado.")
-                    time.sleep(1)  # Aguardar 1 segundo antes de verificar novamente
+                
+                # Quando a chave não existir mais, a sessão expirou
+                for i in range(10, 0, -1):
+                    print(f"A sessão será encerrada em {i} segundos.", end='\r')
+                    time.sleep(1)  # Aguardar 1 segundo antes de imprimir o próximo segundo
 
                 # Quando a chave não existir mais, a sessão expirou
                 print("Sessão expirada. Você foi desconectado.")
