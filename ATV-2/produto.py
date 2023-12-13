@@ -2,7 +2,6 @@ def delete_produto(db, nome, valor):
     # Delete
     mycol = db.produto
     myquery = {"nome": nome}
-    myquery = {"valor": valor}
     mydoc = mycol.delete_one(myquery)
     print("Deletado o produto ", mydoc)
 
@@ -11,8 +10,9 @@ def create_produto(db):
     mycol = db.produto
     print("\nInserindo um novo produto")
     nome = input("Nome: ")
-    valor = int(input("Valor: "))
-    mydoc = {"nome": nome, "valor": valor}
+    valor = float(input("Valor: "))
+    descricao = input("Descrição: ")
+    mydoc = {"nome": nome, "valor": valor, "descricao": descricao}
     x = mycol.insert_one(mydoc)
     print("Documento inserido com ID ", x.inserted_id)
 
@@ -23,7 +23,7 @@ def read_produto(db, nome):
     if not len(nome):
         mydoc = mycol.find().sort("nome")
         for x in mydoc:
-            print(x["nome"], x["valor"])
+            print(x["nome"], x["valor"], x["descricao"])
     else:
         myquery = {"nome": nome}
         mydoc = mycol.find(myquery)
@@ -43,6 +43,10 @@ def update_produto(db, nome):
     valor = input("Mudar Valor:")
     if len(valor):
         mydoc["valor"] = valor
+
+    descricao = input("Mudar Descrição:")
+    if len(descricao):
+        mydoc["descricao"] = descricao
 
     newvalues = {"$set": mydoc}
     mycol.update_one(myquery, newvalues)

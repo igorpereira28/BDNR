@@ -108,8 +108,7 @@ while (key != 'S'):
         elif (sub == '4'):
             print("delete produto")
             nome = input("Nome a ser deletado: ")
-            valor = input("Valor a ser deletado: ")
-            delete_produto(db, nome, valor)
+            delete_produto(db, nome)
 
     elif (key == '4'):
         print("Menu da Compra")
@@ -123,9 +122,6 @@ while (key != 'S'):
         
         elif (sub == '2'):
             visualizarCompra(db)
-
-        # elif (sub == '3'):
-        #     atualizarCompra(db)
 
         elif (sub == '3'):
             cancelarCompra(db)
